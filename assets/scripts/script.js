@@ -30,34 +30,70 @@ let commentImageContainer = document.querySelector(".commentImageContainer")
 
 let questionSet = [questionOne, questionTwo, questionThree, questionFour, questionFive]
 let questionOrder = []
-let index = 0
-
-while (questionSet.length != 0) {
-    index = parseInt(Math.random() * questionSet.length)
-    questionOrder.push(questionSet[index])
-    for (let i = index; i < questionSet.length; i++) {
-        questionSet[i] = questionSet[i + 1]
-    }
-    questionSet.length = questionSet.length - 1
-}
-
-function start() {
-    headerSection.remove()
-    ruleSection.remove()
-    question()
-}
-
 let score = 0
 let questionIndex = -1
 let answerButton = 0
 let flag = true
+let answersOrder = []
 
-function question() {
+function start() {
+    questionsRandom(questionSet)
+    headerSection.remove()
+    ruleSection.remove()
+    questionDisplay.style.display = "flex"
+    nextQuestion()
+}
+
+function questionsRandom(array) {
+    let index = 0
+    while (array.length != 0) {
+        index = parseInt(Math.random() * array.length)
+        questionOrder.push(array[index])
+        for (let i = index; i < array.length; i++) {
+            array[i] = array[i + 1]
+        }
+        array.length--
+    }
+}
+
+function answersRandom(array) {
+    let answerIndex = 0
+    while (array.length != 0) {
+        answerIndex = parseInt(Math.random() * array.length)
+        answersOrder.push(array[answerIndex])
+        for (let i = answerIndex; i < array.length; i++) {
+            array[i] = array[i + 1]
+        }
+        array.length--
+    }
+}
+
+function nextQuestion() {
     flag = true
     questionIndex++
     resultDisplay.textContent = ""
     nextDisplay.replaceChildren()
-    questionDisplay.style.display = "flex"
+    subjectDisplay.replaceChildren()
+    answersDisplay.replaceChildren()
+    question()
+}
+
+function answersCreation(rightAnswer) {
+    for (let j = 0; j < answersOrder.length; j++) {
+        answerButton = document.createElement("button")
+        answerButton.textContent = answersOrder[j]
+        answerButton.setAttribute("class", `answer${j + 1}`)
+        if (answersOrder[j] === rightAnswer) {
+            answerButton.addEventListener("click", goodAnswer)
+        } else {
+            answerButton.addEventListener("click", badAnswer)
+        }
+        answersDisplay.appendChild(answerButton)
+    }
+    answersOrder = []
+}
+
+function question() {
     let subjectImageContainer = document.createElement("div")
     subjectImageContainer.setAttribute("class", "subjectImageContainer")
     let subjectImage = document.createElement("img")
@@ -65,37 +101,12 @@ function question() {
     subjectText.textContent = questionOrder[questionIndex].subject
     subjectImage.setAttribute("src", `./assets/images/${questionOrder[questionIndex].subject}.jpg`)
     subjectImageContainer.appendChild(subjectImage)
-    subjectDisplay.replaceChildren()
     subjectDisplay.appendChild(subjectImageContainer)
     subjectDisplay.appendChild(subjectText)
     queryDisplay.textContent = questionOrder[questionIndex].query
-    let answersOrder = []
-    let answerIndex = 0
-    while (questionOrder[questionIndex].answers.length != 0) {
-        answerIndex = parseInt(Math.random() * questionOrder[questionIndex].answers.length)
-        answersOrder.push(questionOrder[questionIndex].answers[answerIndex])
-        for (let i = answerIndex; i < questionOrder[questionIndex].answers.length; i++) {
-            questionOrder[questionIndex].answers[i] = questionOrder[questionIndex].answers[i + 1]
-        }
-        questionOrder[questionIndex].answers.length = questionOrder[questionIndex].answers.length - 1
-    }
-    answersDisplay.replaceChildren()
-    for (let j = 0; j < answersOrder.length; j++) {
-        answerButton = document.createElement("button")
-        answerButton.textContent = answersOrder[j]
-        answerButton.setAttribute("class", `answer${j + 1}`)
-        if (answersOrder[j] === questionOrder[questionIndex].goodAnswer) {
-            answerButton.addEventListener("click", goodAnswer, { once: true })
-        } else {
-            answerButton.addEventListener("click", badAnswer, { once: true })
-        }
-        answersDisplay.appendChild(answerButton)
-    }
+    answersRandom(questionOrder[questionIndex].answers)
+    answersCreation(questionOrder[questionIndex].goodAnswer)
 }
-
-startButton.addEventListener("click", () => {
-    start()
-})
 
 function goodAnswer() {
     if (flag == true) {
@@ -113,7 +124,7 @@ function goodAnswer() {
         } else {
             nextButton.textContent = "Question suivante"
             nextButton.addEventListener("click", () => {
-                question()
+                nextQuestion()
             })
         }
         nextDisplay.style.display = "flex"
@@ -136,7 +147,7 @@ function badAnswer() {
         } else {
             nextButton.textContent = "Question suivante"
             nextButton.addEventListener("click", () => {
-                question()
+                nextQuestion()
             })
         }
         nextDisplay.style.display = "flex"
@@ -188,3 +199,7 @@ function quizEnd() {
         }
     }
 }
+
+startButton.addEventListener("click", () => {
+    start()
+})
