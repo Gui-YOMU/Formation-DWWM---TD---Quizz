@@ -1,4 +1,4 @@
-body {
+html {
     margin: 0;
     padding: 10px;
     background-image: url(../images/background.jpg);
@@ -8,7 +8,7 @@ body {
 
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 button:hover {
@@ -20,11 +20,13 @@ h1 {
     border: 5px solid lightgray;
     background-color: whitesmoke;
     padding: 15px;
+    text-align: center;
 }
 
 section#rules {
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
 }
 
@@ -44,7 +46,6 @@ section#rules button {
     font-size: 20px;
     width: 25%;
     padding: 20px;
-    margin: auto;
     margin-top: 20px;
 }
 
@@ -162,13 +163,13 @@ p#result {
 }
 
 p#result.good {
-color: lightgreen;
-text-shadow: 0 0 5px black;
+    color: lightgreen;
+    text-shadow: 0 0 5px black;
 }
 
 p#result.bad {
-color: red;
-text-shadow: 0 0 5px black;
+    color: red;
+    text-shadow: 0 0 5px black;
 }
 
 div#next {
@@ -201,6 +202,7 @@ h3 {
 
 h3~p {
     font-size: 20px;
+    text-align: center;
 }
 
 section.score h3 {
@@ -208,6 +210,7 @@ section.score h3 {
     border: 5px solid lightgray;
     background-color: whitesmoke;
     padding: 15px;
+    text-align: center;
 }
 
 div.commentImageContainer {
@@ -219,4 +222,68 @@ div.commentImageContainer img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+footer>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid blue;
+    margin-top: 50px;
+    padding: 10px;
+    background-color: lightskyblue;
+    width: 25%;
+}
+
+footer p {
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+}
+
+div.logo-container {
+    width: 123px;
+    height: 60px;
+    border: 2px solid lightskyblue;
+}
+
+div.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 876px) {
+    footer>div {
+        width: 33%;
+    }
+
+    p#query {
+        font-size: 30px;
+    }
+
+    div#answers button {
+        font-size: 20px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 592px) {
+    footer>div {
+        width: 50%;
+    }
+
+    p#query {
+        font-size: 20px;
+    }
+
+    div#answers button {
+        font-size: 15px;
+        height: 50px;
+    }
 }

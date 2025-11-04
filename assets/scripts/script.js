@@ -17,6 +17,7 @@ let questionFive = new Question("Histoire", "Quel roi de France a eu pour minist
 let startButton = document.querySelector("#start")
 let headerSection = document.querySelector("header")
 let ruleSection = document.querySelector("#rules")
+let footerSection = document.querySelector("footer")
 let questionDisplay = document.querySelector("#display")
 let subjectDisplay = document.querySelector("#subject")
 let queryDisplay = document.querySelector("#query")
@@ -40,6 +41,7 @@ function start() {
     questionsRandom(questionSet)
     headerSection.remove()
     ruleSection.remove()
+    footerSection.remove()
     questionDisplay.style.display = "flex"
     nextQuestion()
 }
