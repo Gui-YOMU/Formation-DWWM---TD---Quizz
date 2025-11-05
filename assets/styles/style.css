@@ -224,6 +224,12 @@ div.commentImageContainer img {
     object-fit: contain;
 }
 
+section.score button {
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
 footer {
     display: flex;
     justify-content: flex-end;

@@ -28,6 +28,7 @@ let scoreDisplay = document.querySelector(".score")
 let finalScoreDisplay = document.querySelector("#score")
 let commentDisplay = document.querySelector("#comment")
 let commentImageContainer = document.querySelector(".commentImageContainer")
+let restartButtonContainer = document.querySelector("#restart")
 
 let questionSet = [questionOne, questionTwo, questionThree, questionFour, questionFive]
 let questionOrder = []
@@ -200,6 +201,12 @@ function quizEnd() {
             break
         }
     }
+    let restartButton = document.createElement("button")
+    restartButton.textContent = "Rejouer"
+    restartButtonContainer.appendChild(restartButton)
+    restartButton.addEventListener("click", () => {
+        window.location.reload()
+    })
 }
 
 startButton.addEventListener("click", () => {
